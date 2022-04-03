@@ -1,4 +1,5 @@
 var express = require('express');
+var path = require('path')
 const mongoose = require('mongoose');
 require('dotenv').config();
 var status = {
@@ -7,14 +8,16 @@ var status = {
     status: "418 I'm a teapot",
     reason: "no data yet"
 }
+
+const app = express()
+const port = 12345
+mongoose.connect(process.env.MONGO_URL);
+var mongo = mongoose.connection;
+
 const DataInput = mongoose.Schema;
 const DataInputModel = new DataInput({
     status: String
 });
-
-const app = express()
-const port = 12345
-await mongoose.connect(process.env.MONGO_URL);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,6 +28,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res, next) {
     res.render('index', status);
+});
+
+app.post('/', function(req, res, next) {
+    var body = req.body;
+    res.send('recived');
 });
 
 // catch 404 and forward to error handler
