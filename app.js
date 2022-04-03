@@ -7,6 +7,10 @@ var status = {
     status: "418 I'm a teapot",
     reason: "no data yet"
 }
+const DataInput = mongoose.Schema;
+const DataInputModel = new DataInput({
+    status: String
+});
 
 const app = express()
 const port = 12345
