@@ -10,8 +10,10 @@ var status = {
 }
 
 const app = express()
-const port = 12345
-mongoose.connect(process.env.MONGO_URL);
+const port = process.env.PORT
+mongoose.connect(process.env.MONGO_URL, () => {
+    console.log("connected")
+});
 var mongo = mongoose.connection;
 
 const DataInput = mongoose.Schema;
